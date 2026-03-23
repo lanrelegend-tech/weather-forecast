@@ -51,3 +51,37 @@ font-size: 0.8rem;
     font-size: 0.8rem;
     border-radius: 0px 30px 30px 0px;
 }
+/* weather card*/
+.weather-card{
+    background-color: rgb(38, 38, 47);
+    
+    width: 40vw;
+    height: 20vh;
+    margin-left: 25vh;
+    margin-top: 10vh;
+    border-radius: 30px;
+    padding: 2vh;
+}
+.weather-card h2{
+    font-size: 2rem;
+    color:white;
+    margin-left: -75vh;
+}   
+.weather-card p{
+    font-size: 1rem;
+    color:white;
+    margin-left: -65vh;
+    margin-top: -19vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}  
+.weather-card img{
+    width: 30vh;
+    height: 30vh;
+    margin-top: -13vh;
+    margin-right: -60vh;
+} 
+.weather-card h3{
+    font-size: 2rem;
+    color:white;
+    margin-top: -3vh;
+}
