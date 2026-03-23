@@ -12,35 +12,46 @@ function TodayForCast({city = "London"}) {
         }
     }, [city]);
 
-    const todayForecast = forecastData ? forecastData.list.filter(item => item.dt_txt.includes(new Date().toISOString().split('T')[0])) : [];
     if (!forecastData) {
         return <div>Loading...</div>;
     }  
     if (!forecastData.list || forecastData.list.length === 0) {
         return <div>No forecast data available.</div>;
     } 
-    
+    const dailyForecasts = [];
+    const dates = new Set();
 
+    forecastData.list.forEach(item => {
+        const date = new Date(item.dt * 1000).toLocaleDateString().split("T")[0];
+        if (!dates.has(date)) {
+            dates.add(date);
+            dailyForecasts.push(item);
+        }
+    });
+    
+const firstThreeDays = forecastData.list.slice(0, 3);
     return (
-        <div className="today-forecast">
-        <h2>TODAY'S FORECAST ({city})</h2>
+
         <div className="forecast-row">
-            {todayForecast.map((item, index) => (
+            <h2>TODAY'S FORECAST({city})</h2>
+            {firstThreeDays.map((item, index) => {
         const temperature = item.main.temp.toFixed(1);
-        const time = item.dt_txt.split(' ')[1].slice(0, 5);
+        const date = new Date(item.dt * 1000);
+        const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const iconurl = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
-        const description = item.weather[0].description;
+        
         return (
             <div key={index} className="forecast-item">
                 <h3>{time}</h3>
-                <img src={iconurl} alt={description} /> 
-                <p>{description}</p>
+                <img src={iconurl} alt="Weather icon" /> 
+                <h3>{date.toLocaleDateString()}</h3>
+
                 <h4>{temperature}°C</h4>
             </div>
         );
-            ))}
+    })}
         </div>
-        </div>
+
     );
-}   
+} 
 export default TodayForCast;
