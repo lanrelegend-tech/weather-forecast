@@ -1,5 +1,5 @@
 import React from "react";
-function TodayForCast({city = "Lagos"}) {
+function TodayForCast({city = "London"}) {
     const [forecastData, setForecastData] = React.useState(null);
     const API_KEY = "da73444597e3b7a7701ad56438f94598"
 
@@ -11,21 +11,36 @@ function TodayForCast({city = "Lagos"}) {
                 .catch(error => console.error("Error fetching forecast data:", error));
         }
     }, [city]);
+
+    const todayForecast = forecastData ? forecastData.list.filter(item => item.dt_txt.includes(new Date().toISOString().split('T')[0])) : [];
     if (!forecastData) {
         return <div>Loading...</div>;
-    }   
-    const todayForecast = forecastData.list.filter(item => item.dt_txt.includes(new Date().toISOString().split('T')[0]));   
-        const temperature = (todayForecast[0].main.temp - 273.15).toFixed(1);
-        const time = todayForecast[0].dt_txt.split(' ')[1].slice(0, 5);
-        const iconurl = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
+    }  
+    if (!forecastData.list || forecastData.list.length === 0) {
+        return <div>No forecast data available.</div>;
+    } 
+    
 
     return (
         <div className="today-forecast">
-        <h2>TODAY'S FORECAST</h2>
-        <img src={iconurl} alt={todayForecast[0].weather[0].description} />
-        <p>{todayForecast[0].weather[0].description}</p>
-        <h3>{temperature}°C at {time}</h3>
-        </div>  
+        <h2>TODAY'S FORECAST ({city})</h2>
+        <div className="forecast-row">
+            {todayForecast.map((item, index) => (
+        const temperature = item.main.temp.toFixed(1);
+        const time = item.dt_txt.split(' ')[1].slice(0, 5);
+        const iconurl = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
+        const description = item.weather[0].description;
+        return (
+            <div key={index} className="forecast-item">
+                <h3>{time}</h3>
+                <img src={iconurl} alt={description} /> 
+                <p>{description}</p>
+                <h4>{temperature}°C</h4>
+            </div>
+        );
+            ))}
+        </div>
+        </div>
     );
-} 
+}   
 export default TodayForCast;
