@@ -91,7 +91,7 @@ font-size: 0.8rem;
     display: flex;
     flex-direction: row;
     width: 30vw;
-    height: 25vh;
+    height: 30vh;
     margin-left: 25vh;
     margin-top: 10vh;
     border-radius: 30px;
@@ -103,21 +103,28 @@ font-size: 0.8rem;
     flex-direction: column;
     align-items: center;
     gap: 1vh;
-    margin-left: 8vh;
-    border-right: 6px solid rgb(38, 38, 47);
+    margin-left: -7vh;
+    
     height: 10vh;
-    margin-top: -2vh;
+    margin-top: 4vh;
     margin-bottom: 4vh;
 
-    padding-right: 11vh;
+    padding-right: 18vh;
     
 }
 .forecast-item:last-child {
     border-right: none;
 }
 .forecast-item h4{
-    color: rgb(46, 0, 0);
-    font-size: 0.1rem;
+    color: rgb(218, 211, 211);
+    font-size: 1rem;
     margin-top: 2vh;
     margin-bottom: 8vh;
+} 
+.forecast-row h2{
+    font-size: 0.8rem;
+    color: white;
+}
+.forecast-item h3 {
+    color: white;
 }

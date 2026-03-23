@@ -8,10 +8,9 @@ function App() {
   return (
     
       <div>
-      <SearchBar />
-      <WeatherCard/>
-      <TodayForCast />
-      <SideBar />
+      
+      <WeekForCast />
+      
 
       
     </div>
