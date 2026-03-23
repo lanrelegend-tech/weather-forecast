@@ -1,5 +1,5 @@
-import React from " react";
-function WeekForCast({city = "London"}) {
+import React from "react";
+function WeekForeCast({city = "Texas"}) {
     const [forecastData, setForecastData] = React.useState(null);
     const API_KEY = "da73444597e3b7a7701ad56438f94598"
 
@@ -14,34 +14,40 @@ function WeekForCast({city = "London"}) {
 
     if (!forecastData) {
         return <div>Loading...</div>;
-    }  
+    }
     if (!forecastData.list || forecastData.list.length === 0) {
         return <div>No forecast data available.</div>;
-    } 
-    const today = new Date().toISOString().split('T')[0];
-
-    
-const firstFiveDay = forecastData.list.filter(item => item.dt_txt.startsWith(today)).slice(0, 5);
+    }   
+    const dailyForecast = {};
+    const dates = new Set();
+    forecastData.list.forEach(item => {
+        const date = item.dt_txt.split(' ')[0];
+        if (!dates.has(date)) {
+            dates.add(date);
+        dailyForecast[date].push(item);
+        }
+    });
+    const firstFiveDays = dailyForecast.slice(0, 5);
     return (
-
-        <div className="week-forecast-row">
-            <h2>WEEKLY FORECAST({city})</h2>
-            {firstFiveDay.map((item, index) => {
-        const temperature = item.main.temp.toFixed(1);
-        const time = item.dt_txt.split(' ')[1].slice(0, 5);
-        const iconurl = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
-        
-        return (
-            <div key={index} className="week-forecast-item">
-                <h3>{time}</h3>
-                <img src={iconurl} alt="Weather icon" /> 
-
-                <h4>{temperature}°C</h4>
-            </div>
-        );
-    })}
+        <div className="week-forecast">
+        <h2>WEEKLY FORECAST({city})</h2>
+        <div className="forecast-row">
+            {firstFiveDays.map((day, index) => {    
+                const temperature = day[0].main.temp.toFixed(1);
+                const date = day[0].dt_txt.split(' ')[0];
+                const iconurl = `https://openweathermap.org/img/wn/${day[0].weather[0].icon}.png`;
+                const dayName = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
+                return (
+                    <div key={index} className="forecast-item">
+                        <h3>{dayName}</h3>
+                        <img src={iconurl} alt="Weather icon" />
+                        <h4>{temperature}°C</h4>
+                    </div>
+                );
+            })}
         </div>
-    
+        </div>
     );
-} 
-export default WeekForCast;
+}       
+
+export default WeekForeCast;
