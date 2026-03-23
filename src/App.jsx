@@ -4,12 +4,14 @@ import "./weather.css";
 import SearchBar from "./SearchBar";
 function App() { 
   return (
-    <div>
-      <SideBar />
+    
+      <div>
       <SearchBar />
+      <SideBar />
 
       
     </div>
+  
   );
 }
 export default App;
