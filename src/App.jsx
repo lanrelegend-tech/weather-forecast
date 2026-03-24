@@ -9,9 +9,11 @@ function App() {
   return (
     
       <div>
-      
+      <SideBar />
+      <SearchBar />
+      <WeatherCard /> 
       <WeekForCast />
-      
+      <TodayForCast />
       
 
       
