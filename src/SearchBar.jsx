@@ -1,15 +1,22 @@
 import React from "react";
-export default function SearchBar({ setCity }) {
+export default function SearchBar({city="london"}) {
   const [inputValue, setInputValue] = React.useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Submitted city:", inputValue);
+
+
+    const trimmedValue = inputValue.trim();
   
 
-    if (inputValue.trim() !== "") {
-      setCity(inputValue.trim());
+    if (trimmedValue == "") {
+      alert("Please enter a city name."
+
+      );
     }
+    console.log("Submitting city:", trimmedValue);
+    setCity(trimmedValue);
+       setInputValue(""); 
   };
   return (
     <form className="search-bar" onSubmit={handleSubmit}>

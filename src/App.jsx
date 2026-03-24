@@ -10,9 +10,6 @@ function App() {
     
       <div>
       <SideBar />
-      <SearchBar />
-      <WeatherCard /> 
-      <WeekForCast />
       <TodayForCast />
       
 

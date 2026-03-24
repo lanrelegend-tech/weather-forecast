@@ -1,11 +1,11 @@
 import React from "react";
-function TodayForCast({city = "London"}) {
+function TodayForCast({city = "lagos"}) {
     const [forecastData, setForecastData] = React.useState(null);
-    const API_KEY = "da73444597e3b7a7701ad56438f94598"
+    const API_KEY = "834e027f37e0f7fbf990990dbae1d71ff"
 
     React.useEffect(() => {
         if (city) {
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=da73444597e3b7a7701ad56438f94598`)
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=834e027f37e0f7fbf990990dbae1d71ff&units=metric`)
                 .then(response => response.json())
                 .then(data => setForecastData(data))
                 .catch(error => console.error("Error fetching forecast data:", error));

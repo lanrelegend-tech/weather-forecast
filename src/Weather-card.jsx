@@ -1,11 +1,11 @@
 import React from "react";
- function WeatherCard({city = "Lagos"}) {
+ function WeatherCard({city="Lagos"}) {
 const [weatherData, setWeatherData] = React.useState(null);
-const API_KEY = "da73444597e3b7a7701ad56438f94598"
+const API_KEY = "834e027f37e0f7fbf990990dbae1d71ff";
 
 React.useEffect(() => {
   if (city) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=da73444597e3b7a7701ad56438f94598`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=834e027f37e0f7fbf990990dbae1d71ff&units=metric`)
       .then(response => response.json())
       .then(data => setWeatherData(data))
       .catch(error => console.error("Error fetching weather data:", error));
