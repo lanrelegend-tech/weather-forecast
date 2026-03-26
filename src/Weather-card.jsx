@@ -1,11 +1,11 @@
 import React from "react";
  function WeatherCard({city="Lagos"}) {
-const [weatherData, setWeatherData] = React.useState(null);
-const API_KEY = "834e027f37e0f7fbf990990dbae1d71ff";
+const [weatherData, setWeatherData] = React.useState();
+
 
 React.useEffect(() => {
   if (city) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=834e027f37e0f7fbf990990dbae1d71ff&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=37a81d9ce8d20708a838c320aa89c091&units=metric`)
       .then(response => response.json())
       .then(data => setWeatherData(data))
       .catch(error => console.error("Error fetching weather data:", error));
@@ -15,7 +15,7 @@ React.useEffect(() => {
         return <div>Loading...</div>;
     }
     const temperature = (weatherData.main.temp - 273.15).toFixed(1);
-    const cityName = weatherData.name;
+    const cityName = city.charAt(0).toUpperCase() + city.slice(1);
     const description = weatherData.weather[0].description;
     const iconUrl = `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`;
 

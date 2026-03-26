@@ -1,11 +1,11 @@
 import React from "react";
 function TodayForCast({city = "lagos"}) {
     const [forecastData, setForecastData] = React.useState(null);
-    const API_KEY = "834e027f37e0f7fbf990990dbae1d71ff"
+
 
     React.useEffect(() => {
         if (city) {
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=834e027f37e0f7fbf990990dbae1d71ff&units=metric`)
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=37a81d9ce8d20708a838c320aa89c091&units=metric`)
                 .then(response => response.json())
                 .then(data => setForecastData(data))
                 .catch(error => console.error("Error fetching forecast data:", error));
@@ -24,7 +24,6 @@ const firstThreeHours = forecastData.list.slice(0, 3);
         <div className="today-forecast">
 
         <div className="forecast-row">
-            <h2>TODAY'S FORECAST({city})</h2>
             {firstThreeHours.map((item, index) => {
         const temperature = item.main.temp.toFixed(1);
         const time = item.dt_txt.split(' ')[1].slice(0, 5);

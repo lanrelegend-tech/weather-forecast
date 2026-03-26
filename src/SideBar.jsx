@@ -1,7 +1,7 @@
 import React from "react";
 import { WiDaySunny,WiCloud,WiRain } from "react-icons/wi";
 import { FaCog ,FaCity,FaMapMarkedAlt,FaCloudSun } from "react-icons/fa";
- function SideBar() {
+ function SideBar({ isOpen}) {
     const SideBarItems = [
         { icon: <WiDaySunny />, label: "Weather" },
         { icon: <FaCity />, label: "Cities" },
@@ -10,10 +10,10 @@ import { FaCog ,FaCity,FaMapMarkedAlt,FaCloudSun } from "react-icons/fa";
     ];
 
   return (
-    <div className="side-bar">
+    <div className={`side-bar ${isOpen ? "active" :""}`}>
     
       {SideBarItems.map((item, index) => (
-        <div key={index} style={{color:"white"}}> {item.icon} <h2>{item.label}</h2> </div>
+        <div key={index} className="item icon"> {item.icon} <h2>{item.label}</h2> </div>
       ))}   
     </div>
   );

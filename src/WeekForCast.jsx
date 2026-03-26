@@ -1,11 +1,12 @@
 import React from "react";
 function WeekForCast({city="london"} ) {
     const [forecastData, setForecastData] = React.useState(null);
-    const API_KEY = "834e027f37e0f7fbf990990dbae1d71ff"
+    
+
 
     React.useEffect(() => {
         if (city) {
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=834e027f37e0f7fbf990990dbae1d71ff`)
+             fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=37a81d9ce8d20708a838c320aa89c091&units=metric`)
                 .then(response => response.json())
                 .then(data => setForecastData(data))
                 .catch(error => console.error("Error fetching forecast data:", error));
@@ -31,9 +32,9 @@ const firstFiveDays = dailyForecast.slice(0, 5);
 
 
     <div className="week-forecast-row">
-            <h2>WEEKLY FORECAST({city})</h2>
             {firstFiveDays.map((item, index) => {
         const date =new Date(item.dt * 1000 );
+        const temperature = item.main.temp.toFixed(1);
         const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
         const iconurl = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
         
@@ -41,7 +42,7 @@ const firstFiveDays = dailyForecast.slice(0, 5);
             <div key={index} className="week-forecast-item">
                 <h3>{dayName}</h3>
                 <img src={iconurl} alt="Weather icon" /> 
-                <h2>{date.toLocaleDateString()}</h2>
+                <h2>{temperature}°C</h2>
             </div>
         );
     })}
