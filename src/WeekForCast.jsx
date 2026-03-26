@@ -1,21 +1,40 @@
 import React from "react";
 function WeekForCast({city="london"} ) {
     const [forecastData, setForecastData] = React.useState(null);
+    const [error, setError] =React.useState(null);
     
 
 
     React.useEffect(() => {
-        if (city) {
+        if (city) { 
+            setForecastData(null);
+            setError(null);
              fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=37a81d9ce8d20708a838c320aa89c091&units=metric`)
-                .then(response => response.json())
-                .then(data => setForecastData(data))
-                .catch(error => console.error("Error fetching forecast data:", error));
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("city not found");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setForecastData(data);
+                })
+                .catch(err => {
+                    console.error("Error fetching weather data:", err);
+                    setError(err.message);
+                });
+            
+                }
         }
+    
     }, [city]);
 
     if (!forecastData) {
         return <div>Loading...</div>;
     }  
+    if(error){
+        return<div>error</div>
+    }
     if (!forecastData.list || forecastData.list.length === 0) {
         return <div>No forecast data available.</div>;
     } 
