@@ -25,8 +25,6 @@ function WeekForCast({city="london"} ) {
                 });
             
                 }
-        }
-    
     }, [city]);
 
     if (!forecastData) {

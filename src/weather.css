@@ -182,7 +182,7 @@ font-size: 0.8rem;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
-    gap: clamp(3rem, 2vw, 8rem);
+    gap: 2rem;
      box-shadow: 0 4px 15px rgb(1, 4, 4);
     transition: transform 0.2s,box-shadow 0.2s;
     

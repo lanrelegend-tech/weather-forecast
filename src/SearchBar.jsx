@@ -20,7 +20,7 @@ function SearchBar({ setCity }) {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Enter a city name"
+          placeholder="Enter a city name......"
         />
         <button type="submit" style={{cursor:"pointer"}}>Search</button>
       </form>
