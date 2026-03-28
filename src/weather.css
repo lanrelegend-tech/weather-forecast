@@ -140,8 +140,8 @@ font-size: 0.8rem;
 .weather-card h2{
     display: flex;
     font-size: 2rem;
-    color:white;
-    -webkit-text-stroke: 1.5px black;
+    color:rgb(136, 255, 0);
+
 
     margin-top: -1.2rem;
     font-family: cursive;
@@ -265,6 +265,22 @@ font-size: 0.8rem;
     padding-left: 1rem;
     margin-right: 0.5rem;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+/*history searched*/
+.history-searched{
+    background-color: white;
+    border-radius: 20px;
+    
+}
+.history-searched ul{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: -1rem;
+    color: rgb(0, 7, 51);
+    list-style: none;
+    margin-left: 1rem;
+    left: 0;
 }
 @media(max-width: 768px){
     .app-container{

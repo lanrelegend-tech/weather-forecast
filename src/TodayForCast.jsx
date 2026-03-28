@@ -1,39 +1,37 @@
+import axios from "axios";
 import React from "react";
-function TodayForCast({city = "lagos"}) {
-    const [forecastData, setForecastData] = React.useState(null);
-    const [error, setError] = React.useState("");
+ function TodayForCast({city="Lagos"}) {
+const [weatherData, setWeatherData] = React.useState();
+const [loading, setLoading] = React.useState(false);
+const [error, setError] = React.useState(null);
+const url =`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=37a81d9ce8d20708a838c320aa89c091&units=metric`;
+
+React.useEffect(() => {
+  const fetchweatherApi = async () => {
+    if(city){
+        try{
+            setLoading(true)
+            const response = await axios.get(url)
+            console.log(response.data)
+                if (response.data){
+                    setWeatherData(response.data)
+                    setError(null)
+                }
+            }catch(error){
+                console.error(error)
+                setError("invalid country")
+            }finally{
+                setLoading(false)
+            }
+        }
+    };
+    fetchweatherApi();
+  
+}, [city, url]);
+
+
     
-
-
-    React.useEffect(() => {
-        if (city) return;
-
-        setForecastData(null);
-        setError("");
-
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=37a81d9ce8d20708a838c320aa89c091&units=metric`)
-                .then(response => {
-                    if(!response.ok) {
-                        throw new Error("city not found");
-                    }
-                    return response.json();
-                })
-                .then((data) => setForecastData(data))
-                .catch((err) => setError(err.message));
-        
-    }, [city]);
-    if (error) {
-        return<div style={{ color: "red"}}>Error: {error}</div>;
-    }
-
-    if (!forecastData) {
-        return <div>Loading...</div>;
-    }  
-    if (!forecastData.list || forecastData.list.length === 0) {
-        return <div>No forecast data available.</div>;
-    } 
-    
-const firstThreeHours = forecastData.list.slice(0, 3);
+const firstThreeHours = weatherData?.list?.slice(0, 3) || [];
     return (
         <div className="today-forecast">
 
@@ -45,10 +43,16 @@ const firstThreeHours = forecastData.list.slice(0, 3);
         
         return (
             <div key={index} className="forecast-item">
-                <h3>{time}</h3>
-                <img src={iconurl} alt="Weather icon" /> 
+                  {loading && <p>Loading...</p>}
+            {error && <p className="error">{error}</p>}
+            {!loading && !error && (
+                <>
+                    <h3>{time}</h3>
+                    <img src={iconurl} alt="Weather icon" /> 
 
-                <h4>{temperature}°C</h4>
+                    <h4>{temperature}°C</h4>
+                </>
+            )}
             </div>
         );
     })}
@@ -56,4 +60,5 @@ const firstThreeHours = forecastData.list.slice(0, 3);
         </div>
     );
 } 
+
 export default TodayForCast;

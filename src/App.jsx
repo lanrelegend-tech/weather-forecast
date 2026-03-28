@@ -17,11 +17,12 @@ function App() {
     <div className="main-content">
       <SearchBar setCity={setCity} />
       <WeatherCard city={city} />
+      <TodayForCast city={city}/>
     
       </div>
       <div>
   
-     
+     <WeekForCast city = {city}/>
       
     
       </div>
